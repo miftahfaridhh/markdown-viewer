@@ -18,31 +18,6 @@ pub struct FileEntry {
     pub children: Option<Vec<FileEntry>>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct RecentFile {
-    pub path: String,
-    pub name: String,
-    pub opened_at: u64,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Prefs {
-    pub theme: String,
-    pub zoom: f32,
-    pub last_directory: Option<String>,
-    pub recent_files: Vec<RecentFile>,
-}
-
-impl Default for Prefs {
-    fn default() -> Self {
-        Prefs {
-            theme: "light".to_string(),
-            zoom: 1.0,
-            last_directory: None,
-            recent_files: vec![],
-        }
-    }
-}
 
 #[tauri::command]
 pub fn read_markdown_file(path: String) -> Result<FileContent, String> {

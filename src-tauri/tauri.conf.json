@@ -18,7 +18,7 @@
         "minWidth": 800,
         "minHeight": 600,
         "resizable": true,
-        "fileDropEnabled": true
+        "dragDropEnabled": true
       }
     ],
     "security": {
@@ -38,9 +38,7 @@
     "windows": {
       "nsis": {
         "installMode": "perMachine",
-        "shortcutName": "Markdown Viewer",
-        "createDesktopShortcut": true,
-        "createStartMenuShortcut": true
+        "startMenuFolder": "Markdown Viewer"
       }
     },
     "fileAssociations": [

@@ -45,7 +45,13 @@ function DirNode({
   );
 }
 
-function FileNode({ entry, onFileClick }: { entry: FileEntry; onFileClick: (path: string) => void }) {
+function FileNode({
+  entry,
+  onFileClick,
+}: {
+  entry: FileEntry;
+  onFileClick: (path: string) => void;
+}) {
   const { state } = useApp();
   const isActive = state.currentFile?.path === entry.path;
   return (

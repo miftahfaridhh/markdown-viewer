@@ -26,12 +26,14 @@ export async function readMarkdownFile(path: string): Promise<FileContent> {
 }
 
 export async function listDirectory(path: string): Promise<FileEntry[]> {
-  const raw = await invoke<Array<{
-    name: string;
-    path: string;
-    is_dir: boolean;
-    children?: Array<unknown>;
-  }>>("list_directory", { path });
+  const raw = await invoke<
+    Array<{
+      name: string;
+      path: string;
+      is_dir: boolean;
+      children?: Array<unknown>;
+    }>
+  >("list_directory", { path });
 
   return normalizeEntries(raw);
 }

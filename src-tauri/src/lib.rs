@@ -1,8 +1,6 @@
 mod commands;
 
-use commands::{
-    get_file_modified_time, get_home_dir, list_directory, read_markdown_file,
-};
+use commands::{get_file_modified_time, get_home_dir, list_directory, read_markdown_file};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {

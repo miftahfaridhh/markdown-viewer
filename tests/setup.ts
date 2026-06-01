@@ -18,7 +18,7 @@ vi.mock("@tauri-apps/plugin-store", () => ({
 }));
 
 vi.mock("@tauri-apps/api/webview", () => ({
-  getCurrentWebview: vi.fn().mockResolvedValue({
+  getCurrentWebview: vi.fn().mockReturnValue({
     onDragDropEvent: vi.fn().mockResolvedValue(() => {}),
   }),
 }));

@@ -1,14 +1,65 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { getCurrentWebview } from "@tauri-apps/api/webview";
 import { AppProvider, useApp } from "./app/AppContext";
 import { Toolbar } from "./features/toolbar/Toolbar";
 import { Sidebar } from "./features/explorer/Sidebar";
 import { MarkdownRenderer } from "./features/markdown/MarkdownRenderer";
-import { readMarkdownFile } from "./shared/ipc";
+import { openFileDialog, readMarkdownFile } from "./shared/ipc";
 
 function AppShell() {
   const { state, dispatch } = useApp();
   const { currentFile, prefs, isLoading, error } = state;
+
+  const openFile = useCallback(async () => {
+    const path = await openFileDialog();
+    if (!path) return;
+    dispatch({ type: "FILE_LOADING" });
+    try {
+      const file = await readMarkdownFile(path);
+      dispatch({ type: "FILE_LOADED", payload: file });
+      dispatch({
+        type: "RECENT_FILE_ADDED",
+        payload: { path, name: path.split(/[\\/]/).pop() ?? path, openedAt: Date.now() },
+      });
+    } catch (err) {
+      dispatch({ type: "FILE_ERROR", payload: String(err) });
+    }
+  }, [dispatch]);
+
+  const reloadFile = useCallback(async () => {
+    if (!currentFile) return;
+    dispatch({ type: "FILE_LOADING" });
+    try {
+      const file = await readMarkdownFile(currentFile.path);
+      dispatch({ type: "FILE_LOADED", payload: file });
+    } catch (err) {
+      dispatch({ type: "FILE_ERROR", payload: String(err) });
+    }
+  }, [currentFile, dispatch]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const ctrl = e.ctrlKey || e.metaKey;
+      if (ctrl && e.key === "o") {
+        e.preventDefault();
+        openFile();
+      }
+      if (ctrl && e.key === "r") {
+        e.preventDefault();
+        reloadFile();
+      }
+      if (ctrl && e.key === "=") {
+        e.preventDefault();
+        dispatch({ type: "ZOOM_CHANGED", payload: prefs.zoom + 0.1 });
+      }
+      if (ctrl && e.key === "-") {
+        e.preventDefault();
+        dispatch({ type: "ZOOM_CHANGED", payload: prefs.zoom - 0.1 });
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [openFile, reloadFile, prefs.zoom, dispatch]);
 
   useEffect(() => {
     const webview = getCurrentWebview();

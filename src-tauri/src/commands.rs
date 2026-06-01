@@ -18,7 +18,6 @@ pub struct FileEntry {
     pub children: Option<Vec<FileEntry>>,
 }
 
-
 #[tauri::command]
 pub fn read_markdown_file(path: String) -> Result<FileContent, String> {
     let p = Path::new(&path);

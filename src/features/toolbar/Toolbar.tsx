@@ -60,10 +60,18 @@ export function Toolbar() {
         Reload
       </button>
       <div className="toolbar-separator" />
-      <button className="toolbar-btn toolbar-btn--icon" onClick={() => handleZoom(0.1)} title="Zoom in">
+      <button
+        className="toolbar-btn toolbar-btn--icon"
+        onClick={() => handleZoom(0.1)}
+        title="Zoom in"
+      >
         A+
       </button>
-      <button className="toolbar-btn toolbar-btn--icon" onClick={() => handleZoom(-0.1)} title="Zoom out">
+      <button
+        className="toolbar-btn toolbar-btn--icon"
+        onClick={() => handleZoom(-0.1)}
+        title="Zoom out"
+      >
         A−
       </button>
       <div className="toolbar-separator" />

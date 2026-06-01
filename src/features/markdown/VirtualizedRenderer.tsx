@@ -20,10 +20,7 @@ export function VirtualizedRenderer({ content }: Props) {
   });
 
   return (
-    <div
-      ref={parentRef}
-      style={{ overflow: "auto", height: "100%" }}
-    >
+    <div ref={parentRef} style={{ overflow: "auto", height: "100%" }}>
       <div
         style={{
           height: `${virtualizer.getTotalSize()}px`,

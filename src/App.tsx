@@ -40,10 +40,22 @@ function AppShell() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const ctrl = e.ctrlKey || e.metaKey;
-      if (ctrl && e.key === "o") { e.preventDefault(); openFile(); }
-      if (ctrl && e.key === "r") { e.preventDefault(); reloadFile(); }
-      if (ctrl && e.key === "=") { e.preventDefault(); dispatch({ type: "ZOOM_CHANGED", payload: prefs.zoom + 0.1 }); }
-      if (ctrl && e.key === "-") { e.preventDefault(); dispatch({ type: "ZOOM_CHANGED", payload: prefs.zoom - 0.1 }); }
+      if (ctrl && e.key === "o") {
+        e.preventDefault();
+        openFile();
+      }
+      if (ctrl && e.key === "r") {
+        e.preventDefault();
+        reloadFile();
+      }
+      if (ctrl && e.key === "=") {
+        e.preventDefault();
+        dispatch({ type: "ZOOM_CHANGED", payload: prefs.zoom + 0.1 });
+      }
+      if (ctrl && e.key === "-") {
+        e.preventDefault();
+        dispatch({ type: "ZOOM_CHANGED", payload: prefs.zoom - 0.1 });
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);

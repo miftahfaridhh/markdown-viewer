@@ -38,9 +38,7 @@
     "windows": {
       "nsis": {
         "installMode": "perMachine",
-        "shortcutName": "Markdown Viewer",
-        "createDesktopShortcut": true,
-        "createStartMenuShortcut": true
+        "startMenuFolder": "Markdown Viewer"
       }
     },
     "fileAssociations": [

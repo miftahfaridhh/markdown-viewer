@@ -47,7 +47,10 @@ describe("appReducer", () => {
     const first = appReducer(initialState, { type: "RECENT_FILE_ADDED", payload: file });
     expect(first.prefs.recentFiles).toHaveLength(1);
 
-    const second = appReducer(first, { type: "RECENT_FILE_ADDED", payload: { ...file, openedAt: 2 } });
+    const second = appReducer(first, {
+      type: "RECENT_FILE_ADDED",
+      payload: { ...file, openedAt: 2 },
+    });
     expect(second.prefs.recentFiles).toHaveLength(1);
     expect(second.prefs.recentFiles[0].openedAt).toBe(2);
   });

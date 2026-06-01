@@ -11,7 +11,9 @@
   border-radius: 6px;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.1s, border-color 0.1s;
+  transition:
+    background 0.1s,
+    border-color 0.1s;
 }
 
 .toolbar-btn:hover:not(:disabled) {
